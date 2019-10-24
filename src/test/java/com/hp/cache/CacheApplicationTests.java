@@ -2,6 +2,7 @@ package com.hp.cache;
 
 import com.hp.cache.bean.Employee;
 import com.hp.cache.mapper.EmployeeMapper;
+import com.hp.cache.service.WeatherService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,14 @@ public class CacheApplicationTests {
 
     @Autowired
     RedisTemplate redisTemplate; //操作k v都是对象
+
+    @Autowired
+    WeatherService weatherService;
+
+    @Test
+    public void getWeatherData(){
+         weatherService.getWeatherInfo("371000");
+    }
 
     @Test
     public void contextLoads() {
