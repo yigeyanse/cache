@@ -22,4 +22,24 @@ public class WeatherController {
     public String getWeather(@PathVariable("cityCode") String cityCode){
         return weatherService.getWeatherInfo(cityCode);
     }
+
+    @GetMapping("/testMap")
+    public String testMap(){
+        return weatherService.testMap();
+    }
+
+    @GetMapping("/testList")
+    public String testList(){
+        return weatherService.testList();
+    }
+
+    @GetMapping("/testSet")
+    public String testSet(){
+        return weatherService.testSet();
+    }
+
+    @GetMapping("/testZSet")
+    public String testZSet(){
+        return weatherService.testZSet();
+    }
 }

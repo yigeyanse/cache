@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -52,5 +56,83 @@ public class WeatherService {
         }
         System.out.println(response);
         return response;
+    }
+
+    /**
+     * redis map基本操作
+     * @return
+     */
+    public String testMap() {
+        String result="";
+        //1.map
+        redisTemplate.opsForHash().put("hmap","name","peter");
+        redisTemplate.opsForHash().put("hmap","age","18");
+        redisTemplate.opsForHash().put("hmap","gender","boy");
+        //result = redisTemplate.opsForHash().values("hmap").toString();
+        //result = redisTemplate.opsForHash().keys("hmap").toString();
+        //result = redisTemplate.opsForHash().entries("hmap").toString();
+        //result = redisTemplate.opsForHash().get("hmap","age").toString();
+        //result = redisTemplate.opsForHash().hasKey("hmap","age").toString();
+        //result = redisTemplate.opsForHash().size("hmap").toString();
+        /*List<Object> list = new ArrayList<Object>();
+        list.add("name");
+        list.add("age");
+        list.add("gender");
+        result = redisTemplate.opsForHash().multiGet("hmap",list).toString();*/
+        /*Map newMap = new HashMap();
+        newMap.put("size","3");
+        newMap.put("count","5");
+        redisTemplate.opsForHash().putAll("mymap",newMap);
+        result = redisTemplate.opsForHash().entries("mymap").toString();*/
+        /*redisTemplate.opsForHash().delete("mymap","size");
+        result = redisTemplate.opsForHash().entries("mymap").toString();*/
+
+        return result;
+    }
+
+    /**
+     * redis list基本操作
+     * @return
+     */
+    public String testList() {
+        String result="";
+        //list
+        redisTemplate.opsForList().leftPush("mylist","v1");
+        redisTemplate.opsForList().leftPushAll("mylist","v2","v3");
+        redisTemplate.opsForList().rightPopAndLeftPush("mylist","mylist");
+        result = redisTemplate.opsForList().range("mylist",0,-1).toString();
+
+        redisTemplate.delete("mylist");
+        return result;
+    }
+
+    /**
+     * 集合
+     * @return
+     */
+    public String testSet(){
+        String result = "";
+        redisTemplate.opsForSet().add("myset","apple");
+        redisTemplate.opsForSet().add("myset","apple");
+        redisTemplate.opsForSet().add("myset","banana","orange","egg");
+
+        result= redisTemplate.opsForSet().members("myset").toString();
+        return result;
+    }
+
+    /**
+     * 有序集合
+     * @return
+     */
+    public String testZSet(){
+        String result = "";
+        redisTemplate.opsForZSet().add("myZSet","aa",1.0);
+        redisTemplate.opsForZSet().add("myZSet","apple",1.1);
+        redisTemplate.opsForZSet().add("myZSet","banana",0.5);
+
+        //result= redisTemplate.opsForZSet().range("myZSet",0,2).toString();
+        //result= redisTemplate.opsForZSet().rangeWithScores("myZSet",0,-1).toString();//获取全部集合元素
+        result= redisTemplate.opsForZSet().reverseRange("myZSet",0,-1).toString();//获取全部集合元素
+        return result;
     }
 }
