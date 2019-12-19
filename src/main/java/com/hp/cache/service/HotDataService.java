@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 测试使用redis 存储最新定长的热数据
  * @author xiaodong
  * @title
  * @date 2019/12/19 08:59
