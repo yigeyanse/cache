@@ -5,9 +5,17 @@ spring:
         password: Pa$$w0rd
         username: root
     redis:
-        host: 109.116.6.127
+        host: 192.168.233.128
         port: 6379
         password: Pa$$w0rd
+        timeout: 10000
+        database: 0
+        lettuce:
+            pool:
+                max-active: 8
+                max-wait: -1
+                max-idle: 8
+                min-idle: 0
 mybatis:
     configuration:
         mapUnderscoreToCamelCase: true
